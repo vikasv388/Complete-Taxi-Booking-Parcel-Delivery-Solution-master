@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Taxi Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Book a ride</ion-card-title>
+      <ion-card-subtitle>Fast, reliable, and easy to manage</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Pickup</ion-label>
+        <ion-input [(ngModel)]="pickup"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Drop-off</ion-label>
+        <ion-input [(ngModel)]="dropoff"></ion-input>
+      </ion-item>
+
+      <ion-item button detail="false" (click)="addTip()">
+        <ion-icon name="cash-outline" slot="start"></ion-icon>
+        <ion-label>Tip driver</ion-label>
+        <ion-note slot="end">{{ tip > 0 ? '$' + tip : 'No tip' }}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Select your ride</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment [(ngModel)]="selectedRide" (ionChange)="selectRide($event.detail.value)">
+        <ion-segment-button *ngFor="let ride of rideOptions" [value]="ride.name">
+          <ion-label>{{ ride.name }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <div class="ride-option" *ngFor="let ride of rideOptions">
+        <ion-icon [name]="ride.icon"></ion-icon>
+        <div>
+          <strong>{{ ride.name }}</strong>
+          <p>{{ ride.description }}</p>
+        </div>
+        <span>${{ ride.price }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Optional add-ons</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-chip *ngFor="let extra of extras" [color]="selectedExtras.includes(extra.value) ? 'warning' : 'medium'" (click)="toggleExtra(extra.value)">
+        {{ extra.label }} +${{ extra.price }}
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="status-row">
+        <div>
+          <p class="label">Driver status</p>
+          <strong>{{ driverOnline ? 'Online now' : 'Busy' }}</strong>
+        </div>
+        <div>
+          <p class="label">ETA</p>
+          <strong>{{ eta }}</strong>
+        </div>
+      </div>
+
+      <div class="fare-box">
+        <h2>${{ estimatedFare }}</h2>
+        <p>Estimated fare</p>
+      </div>
+
+      <ion-button expand="block" color="warning" (click)="bookRide()">
+        Confirm booking
+      </ion-button>
+
+      <ion-text color="success" *ngIf="bookingMessage">
+        <p>{{ bookingMessage }}</p>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

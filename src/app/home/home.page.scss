@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.ride-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ion-color-light-shade);
+}
+
+.ride-option:last-child {
+  border-bottom: 0;
+}
+
+.ride-option ion-icon {
+  font-size: 24px;
+  color: var(--ion-color-warning);
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.label {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  color: var(--ion-color-medium);
+}
+
+.fare-box {
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(254, 221, 30, 0.14);
+  margin-bottom: 12px;
+}
+
+.fare-box h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
